@@ -2,6 +2,11 @@
 
 A comprehensive solution for implementing multi-tenant architectures with Amazon Bedrock using Application Inference Profiles. This repository provides tools for creating, managing, and monitoring tenant-specific inference profiles with cost allocation and usage tracking.
 
+## 🔗 Related Solutions
+
+This repository works seamlessly with:
+- **[AWS Claude Code Quota Monitoring (CCWB)](https://github.com/cmsrb4u/aws-Claude-Code-Quota-Monitoring)** - Add user-level quota enforcement and token limits to your Application Inference Profiles. Together, they provide a complete multi-tenant Bedrock solution with both isolation AND quota management.
+
 ## 🎯 What are Application Inference Profiles?
 
 Application Inference Profiles (AIPs) are a feature of Amazon Bedrock that enables:
@@ -9,7 +14,7 @@ Application Inference Profiles (AIPs) are a feature of Amazon Bedrock that enabl
 - **Cost attribution**: Track usage and costs per tenant/department
 - **Usage monitoring**: CloudWatch metrics per profile
 - **Tag-based management**: Organize profiles with custom tags
-- **Quota enforcement**: Set limits per profile (when combined with CCWB)
+- **Quota enforcement**: Set limits per profile (when combined with [CCWB](https://github.com/cmsrb4u/aws-Claude-Code-Quota-Monitoring))
 
 ## 🚀 Features
 
@@ -226,9 +231,49 @@ A CloudWatch dashboard is automatically created showing:
 - Error rates
 - Latency metrics
 
+### User-Level Quota Monitoring
+
+For advanced user-level quota monitoring and enforcement, integrate with **[AWS Claude Code Quota Monitoring (CCWB)](https://github.com/cmsrb4u/aws-Claude-Code-Quota-Monitoring)**:
+
+#### Features:
+- **User-Level Tracking**: Monitor token usage per individual user, not just per profile
+- **Quota Enforcement**: Set hard limits (block) or soft limits (alert) per user
+- **Hierarchical Policies**: User → Group → Default policy precedence
+- **DynamoDB Storage**: Real-time usage tracking with automatic TTL
+- **CloudWatch Integration**: Beautiful dashboards with gauges, trends, and alerts
+
+#### Quick Integration:
+```bash
+# Clone the CCWB repository
+git clone https://github.com/cmsrb4u/aws-Claude-Code-Quota-Monitoring.git
+cd aws-Claude-Code-Quota-Monitoring
+
+# Deploy the infrastructure
+python scripts/setup_complete.py
+python scripts/create_dashboard.py
+```
+
+#### How They Work Together:
+1. **AIP** provides tenant isolation via separate inference profiles
+2. **CCWB** adds user-level quotas within each tenant
+3. Together: Complete multi-tenant solution with both isolation AND limits
+
+Example architecture:
+```
+Tenant A (Marketing) - AIP Profile
+├── john.doe@company.com - 500M tokens/month (CCWB)
+├── jane.smith@company.com - 300M tokens/month (CCWB)
+└── team.member@company.com - Default quota (CCWB)
+
+Tenant B (Sales) - AIP Profile
+├── alice.exec@company.com - 1B tokens/month (CCWB)
+└── bob.sales@company.com - 200M tokens/month (CCWB)
+```
+
 ### Alarms
 Set up alarms for:
-- High token usage
+- High token usage (profile-level via AIP)
+- User quota exceeded (user-level via CCWB)
 - Error rate thresholds
 - Latency spikes
 
@@ -272,7 +317,12 @@ For issues or questions:
 
 ## 🔗 Resources
 
+### AWS Documentation
 - [Amazon Bedrock Documentation](https://docs.aws.amazon.com/bedrock/)
 - [Application Inference Profiles Guide](https://docs.aws.amazon.com/bedrock/latest/userguide/application-inference-profiles.html)
 - [CloudWatch Metrics for Bedrock](https://docs.aws.amazon.com/bedrock/latest/userguide/monitoring-cloudwatch.html)
 - [AWS Cost Management](https://aws.amazon.com/aws-cost-management/)
+
+### Related GitHub Repositories
+- [AWS Claude Code Quota Monitoring (CCWB)](https://github.com/cmsrb4u/aws-Claude-Code-Quota-Monitoring) - User-level quota enforcement for Bedrock
+- [AWS Solutions Library - CCWB](https://github.com/aws-solutions-library-samples/guidance-for-claude-code-with-amazon-bedrock) - Official AWS guidance
