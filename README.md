@@ -27,27 +27,34 @@ Application Inference Profiles (AIPs) are a feature of Amazon Bedrock that enabl
 
 ## 📋 Prerequisites
 
+### Required
 - AWS Account with Bedrock access
 - AWS CLI configured (`aws configure`)
 - Python 3.8+ installed
-- boto3 and matplotlib libraries
 - Access to Claude models in Amazon Bedrock
+
+### Optional (for Advanced Features)
+- **Poetry** - Better dependency management ([Installation Guide](INSTALLATION.md#step-1-install-poetry-optional-but-recommended))
+- **CCWB CLI** - Full Claude Code with Bedrock features ([Installation Guide](INSTALLATION.md#step-2-install-ccwb-cli))
+- **Quota Monitoring** - User-level token limits ([Setup Guide](https://github.com/cmsrb4u/aws-Claude-Code-Quota-Monitoring))
 
 ## 🛠️ Installation
 
-### 1. Clone the Repository
+### Quick Start
 ```bash
 git clone https://github.com/cmsrb4u/aws-bedrock-application-inference-profile.git
 cd aws-bedrock-application-inference-profile
-```
-
-### 2. Install Dependencies
-```bash
 pip install -r requirements.txt
 ```
 
-### 3. Configure AWS Region
-Edit `config/settings.py` to set your preferred AWS region (default: us-west-2)
+### Advanced Installation Options
+
+For complete installation instructions including:
+- 📦 **Poetry** setup for better dependency management
+- 🔧 **CCWB CLI** installation for full Claude Code with Bedrock features
+- 📊 **Quota Monitoring** integration for user-level limits
+
+See **[INSTALLATION.md](INSTALLATION.md)** for detailed step-by-step instructions.
 
 ## 🚀 Quick Start
 
