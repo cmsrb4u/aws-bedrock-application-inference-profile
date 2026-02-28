@@ -40,11 +40,35 @@ Application Inference Profiles (AIPs) are a feature of Amazon Bedrock that enabl
 
 ## 🛠️ Installation
 
-### Quick Start
+### ⚠️ Important: Prerequisites Setup Required
+
+Before installation, you **MUST** complete these steps:
+1. **Enable Amazon Bedrock** in your AWS account
+2. **Request access to Claude models** in Bedrock console
+3. **Configure IAM permissions** for Bedrock and CloudWatch
+4. **Set up AWS CLI** with valid credentials
+
+See **[SETUP_GUIDE.md](SETUP_GUIDE.md)** for detailed step-by-step instructions.
+
+### Quick Start (After Prerequisites)
 ```bash
+# 1. Verify AWS setup
+aws sts get-caller-identity
+aws bedrock list-foundation-models --region us-west-2 | grep claude
+
+# 2. Clone and setup
 git clone https://github.com/cmsrb4u/aws-bedrock-application-inference-profile.git
 cd aws-bedrock-application-inference-profile
+
+# 3. Create virtual environment (IMPORTANT)
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# 4. Install dependencies
 pip install -r requirements.txt
+
+# 5. Validate setup
+python scripts/setup_aip.py
 ```
 
 ### Advanced Installation Options
